@@ -1,0 +1,22 @@
+{
+  "author": {
+    "name": "Mihail Stefanov"
+  },
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.2.0"
+  },
+  "description": "crypto library for Lora",
+  "devDependencies": {},
+  "gypfile": true,
+  "homepage": "http://mommosoft.com",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "bluecypher",
+  "optionalDependencies": {},
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "test": "mocha"
+  },
+  "version": "0.0.1"
+}
