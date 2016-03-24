@@ -18,7 +18,7 @@ void AesObject::Init(Local<Object> exports) {
     Nan::HandleScope scope;
 
     Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
-    tpl->SetClassName(Nan::New("AesObject").ToLocalChecked());
+    tpl->SetClassName(Nan::New("Aes").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
     Local<ObjectTemplate> itpl = tpl->InstanceTemplate();
     SetAccessor(itpl, Nan::New<String>("key").ToLocalChecked(),
@@ -26,7 +26,7 @@ void AesObject::Init(Local<Object> exports) {
             AesObject::SetKey);
     SetPrototypeMethod(tpl, "encrypt", AesObject::Encrypt);
     constructor.Reset(tpl->GetFunction());
-    exports->Set(Nan::New("AesObject").ToLocalChecked(), tpl->GetFunction()); 
+    exports->Set(Nan::New("Aes").ToLocalChecked(), tpl->GetFunction()); 
 }
 
 void AesObject::New(const Nan::FunctionCallbackInfo<Value>& info) {

@@ -19,7 +19,7 @@ void CMacObject::Init(Local<Object> exports) {
     Nan::HandleScope scope;
 
     Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
-    tpl->SetClassName(Nan::New("CMacObject").ToLocalChecked());
+    tpl->SetClassName(Nan::New("CMac").ToLocalChecked());
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
     Local<ObjectTemplate> itpl = tpl->InstanceTemplate();
     SetAccessor(itpl, Nan::New<String>("key").ToLocalChecked(),
@@ -28,7 +28,7 @@ void CMacObject::Init(Local<Object> exports) {
     SetPrototypeMethod(tpl, "update", CMacObject::Update);
     SetPrototypeMethod(tpl, "final", CMacObject::Final);
     constructor.Reset(tpl->GetFunction());
-    exports->Set(Nan::New("CMacObject").ToLocalChecked(), tpl->GetFunction()); 
+    exports->Set(Nan::New("CMac").ToLocalChecked(), tpl->GetFunction()); 
 }
 
 
