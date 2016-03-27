@@ -9,12 +9,13 @@ extern "C" {
 
 
 class AesObject : public node::ObjectWrap {
-    
+
     public:
         static void Init(v8::Local<v8::Object> exports);
         static NAN_GETTER(GetKey);
         static NAN_SETTER(SetKey);
         static NAN_METHOD(Encrypt);
+        static NAN_METHOD(Decrypt);
     private:
         explicit AesObject();
         ~AesObject();

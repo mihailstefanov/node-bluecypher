@@ -15,4 +15,10 @@ describe('AES', function() {
         a.key = new Buffer('00112233445566778899AABBCCDDEEFF','hex');
         console.log(a.encrypt(new Buffer('00112233445566778899AABBCCDDEEFF','hex')));
     });
+
+    it('decrypth a buffer', function() {
+        var a = new cypher.Aes();
+        a.key = new Buffer('00112233445566778899AABBCCDDEEFF','hex');
+        console.log(a.decrypt(new Buffer('00112233445566778899AABBCCDDEEFF','hex')));
+    });
 });

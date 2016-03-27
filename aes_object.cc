@@ -25,8 +25,9 @@ void AesObject::Init(Local<Object> exports) {
             0,
             AesObject::SetKey);
     SetPrototypeMethod(tpl, "encrypt", AesObject::Encrypt);
+    SetPrototypeMethod(tpl, "decrypt", AesObject::Decrypt);
     constructor.Reset(tpl->GetFunction());
-    exports->Set(Nan::New("Aes").ToLocalChecked(), tpl->GetFunction()); 
+    exports->Set(Nan::New("Aes").ToLocalChecked(), tpl->GetFunction());
 }
 
 void AesObject::New(const Nan::FunctionCallbackInfo<Value>& info) {
@@ -69,5 +70,26 @@ NAN_METHOD(AesObject::Encrypt) {
 
     uint8_t *out = (uint8_t*)calloc(1, N_BLOCK);
     aes_encrypt(in, out, obj->ctx_);
+    info.GetReturnValue().Set(Nan::NewBuffer((char*)out, N_BLOCK).ToLocalChecked());
+}
+
+NAN_METHOD(AesObject::Decrypt) {
+    AesObject* obj =
+        ObjectWrap::Unwrap<AesObject>(info.Holder());
+    if (info.Length() < 1) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
+
+    Local<Object> bufferObj = info[0]->ToObject();
+    uint8_t *in = (uint8_t*)node::Buffer::Data(bufferObj);
+    uint32_t in_len = node::Buffer::Length(bufferObj);
+    if (in_len != N_BLOCK) {
+        Nan::ThrowTypeError("Wrong lenght of in block");
+        return;
+    }
+
+    uint8_t *out = (uint8_t*)calloc(1, N_BLOCK);
+    aes_decrypt(in, out, obj->ctx_);
     info.GetReturnValue().Set(Nan::NewBuffer((char*)out, N_BLOCK).ToLocalChecked());
 }
