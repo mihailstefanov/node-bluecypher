@@ -22,7 +22,7 @@ void AesObject::Init(Local<Object> exports) {
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
     Local<ObjectTemplate> itpl = tpl->InstanceTemplate();
     SetAccessor(itpl, Nan::New<String>("key").ToLocalChecked(),
-            0,
+            AesObject::GetKey, 
             AesObject::SetKey);
     SetPrototypeMethod(tpl, "encrypt", AesObject::Encrypt);
     SetPrototypeMethod(tpl, "decrypt", AesObject::Decrypt);
@@ -39,6 +39,9 @@ void AesObject::New(const Nan::FunctionCallbackInfo<Value>& info) {
         Local<Function> cons = Nan::New<Function>(constructor);
         info.GetReturnValue().Set(cons->NewInstance(0, NULL));
     }
+}
+
+NAN_GETTER(AesObject::GetKey) {
 }
 
 NAN_SETTER(AesObject::SetKey) {
